@@ -55,13 +55,15 @@ def send():
 
     sample_operation_read = Operation(
         operation_type="REQUEST_READ",
-        args={"5f085a799a9ac342942012b6"},
+        args={"5f295ceb82f2dbf9740ba41e"},
     )
     operations = {'1': sample_operation_request, '2': sample_operation_read, '3': sample_operation_systems, '4': 'quit'}
     while operation is not "quit":
         in_put = input("1: sample_operation_request, 2: sample_operation_read, "
                        "3: sample_operation_systems, 4: 'quit'\n Enter corresponding number: ")
         if in_put in operations:
+            if in_put is "2":
+                operations[in_put].args = {input("Enter request id: ")}
             operation = operations[in_put]
             if operation is not "quit":
                 conn.send(body=SchemaParser.serialize_operation(operation, to_string=True),

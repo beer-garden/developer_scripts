@@ -30,6 +30,8 @@ class MessageListener(object):
             print("Parsed message:", parsed)
         except AttributeError:
             print("AttributeError: unable to parse message.")
+        except:
+            pass
 
 
 def listen():
