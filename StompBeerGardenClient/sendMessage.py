@@ -28,8 +28,16 @@ def sendHeartbeat():
 def send():
     global conn
     operation = None
-    conn = stomp.Connection(host_and_ports=[('localhost', 61613)], heartbeats=(10000, 0))
-    conn.connect('beer_garden', 'password', wait=True, headers={'client-id': 'SendMessage'})
+    key = './certs/server_key.pem'
+    cert = './certs/server_certificate.pem'
+    host_and_ports=[('localhost', 61613)]
+    conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
+    try:
+        conn.connect('beer_garden', 'password', wait=True, headers={'client-id': 'beer_garden'})
+    except:
+        conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
+        conn.set_ssl(for_hosts=host_and_ports, key_file=key, cert_file=cert)
+        conn.connect('beer_garden', 'password', wait=True, headers={'client-id': 'beer_garden'})
 
     signal.signal(signal.SIGINT, keyboardInterruptHandler)
     # Sending a Request
@@ -67,7 +75,7 @@ def send():
             operation = operations[in_put]
             if operation is not "quit":
                 conn.send(body=SchemaParser.serialize_operation(operation, to_string=True),
-                          headers={'reply-to': 'replyto'}, destination='beergarden/operations')
+                          headers={'reply-to': 'replyto'}, destination='Beer_Garden_Operations')
         else:
             print("Error: Input is not valid")
 
