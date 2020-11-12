@@ -1,5 +1,9 @@
-# Sends 3 different operations based on user input to topic beergarden/operations, and request in the header for a
-# response to be sent to topic replyto
+#!/usr/bin/env python
+
+"""
+Sends 3 different operations based on user input to topic beergarden/operations, and
+request in the header for a response to be sent to topic replyto
+"""
 
 
 import signal

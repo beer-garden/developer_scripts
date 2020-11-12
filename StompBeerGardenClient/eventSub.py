@@ -1,5 +1,10 @@
-# Subscribes to beergarden/events topic to get event messages. Also the queue made from the subscription is durable so
-# after disconnection the queue is not removed so it can get missed messages after reconnection.
+#!/usr/bin/env python
+
+"""
+Subscribes to beergarden/events topic to get event messages. Also the queue made from
+the subscription is durable so after disconnection the queue is not removed so it can
+get missed messages after reconnection.
+"""
 
 import signal
 import stomp

@@ -1,7 +1,11 @@
-# Subscribes to replyto topic to get responses requested from an actor if reply-to was specified as replyto in the
-# header. Also the queue made from the subscription is durable so after disconnection the queue is not removed so it
-# can get missed messages after reconnection. The message will be forwarded to metadataReplyto if the event payload
-# has attribute metadata with a key 'reply-to' and a value of metadataReplyto
+#!/usr/bin/env python
+
+"""
+Subscribes to replyto topic to get responses requested from an actor if reply-to was specified as replyto in the
+header. Also the queue made from the subscription is durable so after disconnection the queue is not removed so it
+can get missed messages after reconnection. The message will be forwarded to metadataReplyto if the event payload
+has attribute metadata with a key 'reply-to' and a value of metadataReplyto
+"""
 
 import signal
 import stomp

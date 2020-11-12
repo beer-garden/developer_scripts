@@ -1,6 +1,11 @@
-# Subscribes to metadataReplyto topic to get messages sent from eventSub if the event payload has attribute metadata with
-# a key 'reply-to' and a value of metadataReplyto. Also the queue made from the subscription is durable so
-# after disconnection the queue is not removed so it can get missed messages after reconnection.
+#!/usr/bin/env python
+
+"""
+Subscribes to metadataReplyto topic to get messages sent from eventSub if the event
+payload has attribute metadata with a key 'reply-to' and a value of metadataReplyto.
+Also the queue made from the subscription is durable so after disconnection the queue
+is not removed so it can get missed messages after reconnection.
+"""
 
 import signal
 import stomp
