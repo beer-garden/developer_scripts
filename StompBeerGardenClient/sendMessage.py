@@ -80,16 +80,16 @@ def send():
         "3": sample_operation_systems,
         "4": "quit",
     }
-    while operation is not "quit":
+    while operation != "quit":
         in_put = input(
             "1: sample_operation_request, 2: sample_operation_read, "
             "3: sample_operation_systems, 4: 'quit'\n Enter corresponding number: "
         )
         if in_put in operations:
-            if in_put is "2":
+            if in_put == "2":
                 operations[in_put].args = {input("Enter request id: ")}
             operation = operations[in_put]
-            if operation is not "quit":
+            if operation != "quit":
                 conn.send(
                     body=SchemaParser.serialize_operation(operation, to_string=True),
                     headers={"reply-to": "replyto"},
