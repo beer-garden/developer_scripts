@@ -18,18 +18,24 @@ def keyboardInterruptHandler(signal, frame):
 
 class MessageListener(object):
     def on_error(self, headers, message):
-        print('received an error %s' % headers)
+        print("received an error %s" % headers)
 
     def on_message(self, headers, message):
         global conn
         try:
-            parsed = SchemaParser.parse(message, from_string=True, model_class=eval(headers['model_class']))
+            parsed = SchemaParser.parse(
+                message, from_string=True, model_class=eval(headers["model_class"])
+            )
             print("Parsed message:", parsed)
 
             #  Forwards an event object to a destination if payload has a metadata
             try:
-                if 'reply-to' in parsed.payload.metadata:
-                    conn.send(body=message, headers=headers, destination=parsed.payload.metadata['reply-to'])
+                if "reply-to" in parsed.payload.metadata:
+                    conn.send(
+                        body=message,
+                        headers=headers,
+                        destination=parsed.payload.metadata["reply-to"],
+                    )
             except AttributeError:
                 pass
         except AttributeError:
@@ -38,21 +44,32 @@ class MessageListener(object):
 
 def listen():
     global conn
-    key = './certs/server_key.pem'
-    cert = './certs/server_certificate.pem'
-    host_and_ports=[('localhost', 61613)]
+    key = "./certs/server_key.pem"
+    cert = "./certs/server_certificate.pem"
+    host_and_ports = [("localhost", 61613)]
     conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
     try:
-        conn.connect('beer_garden', 'password', wait=True, headers={'client-id': 'beer_garden'})
+        conn.connect(
+            "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
+        )
     except:
         conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
         conn.set_ssl(for_hosts=host_and_ports, key_file=key, cert_file=cert)
-        conn.connect('beer_garden', 'password', wait=True, headers={'client-id': 'beer_garden'})
+        conn.connect(
+            "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
+        )
 
-    conn.set_listener('', MessageListener())
+    conn.set_listener("", MessageListener())
 
-    conn.subscribe(destination='Beer_Garden_Events', id='event_listener', ack='auto',
-                   headers={'subscription-type': 'MULTICAST', 'durable-subscription-name': 'events'})
+    conn.subscribe(
+        destination="Beer_Garden_Events",
+        id="event_listener",
+        ack="auto",
+        headers={
+            "subscription-type": "MULTICAST",
+            "durable-subscription-name": "events",
+        },
+    )
     signal.signal(signal.SIGINT, keyboardInterruptHandler)
     while True:
         pass
