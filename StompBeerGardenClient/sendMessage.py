@@ -89,10 +89,11 @@ def send():
             if in_put == "2":
                 operations[in_put].args = {input("Enter request id: ")}
             operation = operations[in_put]
+
             if operation != "quit":
                 conn.send(
                     body=SchemaParser.serialize_operation(operation, to_string=True),
-                    headers={"reply-to": "replyto"},
+                    headers={"reply-to": "replyto", 'model_class': operation.__class__.__name__},
                     destination="Beer_Garden_Operations",
                 )
         else:
