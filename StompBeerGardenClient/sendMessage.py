@@ -75,7 +75,7 @@ def send():
             operation = operations[in_put]
             if operation is not "quit":
                 conn.send(body=SchemaParser.serialize_operation(operation, to_string=True),
-                          headers={'reply-to': 'replyto'}, destination='Beer_Garden_Operations')
+                          headers={'reply-to': 'replyto', 'model_class': operation.__class__.__name__}, destination='Beer_Garden_Operations')
         else:
             print("Error: Input is not valid")
 
