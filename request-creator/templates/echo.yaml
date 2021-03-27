@@ -1,0 +1,9 @@
+
+system_name: echo
+system_version: 3.0.0.dev0
+system_namespace: default
+command: say
+instance_name: default
+parameters:
+  message: Hey
+  loud: false
