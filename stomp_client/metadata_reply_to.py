@@ -35,7 +35,7 @@ class MessageListener(stomp.ConnectionListener):
                 many="True" == headers["many"],
             )
 
-            print("Parsed message:", parsed)
+            print(f"Parsed message: {parsed!r}")
         except AttributeError:
             print("AttributeError: unable to parse message.")
 

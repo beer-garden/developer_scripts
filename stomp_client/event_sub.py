@@ -33,7 +33,7 @@ class MessageListener(stomp.ConnectionListener):
                 many="True" == headers["many"],
             )
 
-            print("Parsed message:", parsed)
+            print(f"Parsed message: {parsed!r}")
 
             #  Forwards an event object to a destination if payload has a metadata
             try:

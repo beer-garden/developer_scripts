@@ -26,7 +26,6 @@ class MessageListener(stomp.ConnectionListener):
         print(f"Received an error:\n\tMessage: {message}\n\tHeaders: {headers}")
 
     def on_message(self, headers, message):
-        print("Raw message:", message)
         try:
             parsed = SchemaParser.parse(
                 message,
@@ -35,7 +34,7 @@ class MessageListener(stomp.ConnectionListener):
                 many="True" == headers["many"],
             )
 
-            print("Parsed message:", parsed)
+            print(f"Parsed message: {parsed!r}")
         except AttributeError:
             print("AttributeError: unable to parse message.")
         except:
