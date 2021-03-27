@@ -15,7 +15,6 @@ conn: stomp.Connection
 
 
 def signal_handler(_, __):
-    global conn
     if conn.is_connected():
         conn.disconnect()
 
@@ -25,7 +24,6 @@ class MessageListener(stomp.ConnectionListener):
         print(f"Received an error:\n\tMessage: {message}\n\tHeaders: {headers}")
 
     def on_message(self, headers, message):
-        global conn
         try:
             parsed = SchemaParser.parse(
                 message, from_string=True, model_class=eval(headers["model_class"])

@@ -17,7 +17,6 @@ conn: stomp.Connection
 
 
 def signal_handler(_, __):
-    global conn
     if conn.is_connected():
         conn.disconnect()
 

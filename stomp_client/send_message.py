@@ -17,13 +17,11 @@ conn: stomp.Connection
 
 
 def signal_handler(_, __):
-    global conn
     if conn.is_connected():
         conn.disconnect()
 
 
 def sendHeartbeat():
-    global conn
     while conn.is_connected:
         time.sleep(30)
         conn.send(body="heartbeat", destination="heartbeat")

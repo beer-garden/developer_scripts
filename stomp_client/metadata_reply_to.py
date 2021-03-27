@@ -16,7 +16,6 @@ conn: stomp.Connection
 
 
 def signal_handler(_, __):
-    global conn
     if conn.is_connected():
         conn.disconnect()
 
@@ -45,6 +44,7 @@ def listen():
     cert = "./certs/server_certificate.pem"
     host_and_ports = [("localhost", 61613)]
     conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
+
     try:
         conn.connect(
             "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
