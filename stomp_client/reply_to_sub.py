@@ -41,8 +41,6 @@ class MessageListener(stomp.ConnectionListener):
 
 def listen():
     global conn
-    key = "./certs/server_key.pem"
-    cert = "./certs/server_certificate.pem"
     host_and_ports = [("localhost", 61613)]
     conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
 
@@ -51,12 +49,18 @@ def listen():
             "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
         )
     except:
-        conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
+        print("Connection attempt failed, attempting TLS connection")
+
+        key = "./certs/server_key.pem"
+        cert = "./certs/server_certificate.pem"
         conn.set_ssl(for_hosts=host_and_ports, key_file=key, cert_file=cert)
+
         conn.connect(
             "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
         )
+
     conn.set_listener("", MessageListener())
+
     conn.subscribe(
         destination="replyto",
         id="replyto_listener",

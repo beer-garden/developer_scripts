@@ -23,14 +23,23 @@ def signal_handler(_, __):
 
 def send():
     global conn
-    count = 0
-    operation = None
     host_and_ports = [("localhost", 61613)]
-
     conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
-    conn.connect(
-        "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
-    )
+
+    try:
+        conn.connect(
+            "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
+        )
+    except:
+        print("Connection attempt failed, attempting TLS connection")
+
+        key = "./certs/server_key.pem"
+        cert = "./certs/server_certificate.pem"
+        conn.set_ssl(for_hosts=host_and_ports, key_file=key, cert_file=cert)
+
+        conn.connect(
+            "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
+        )
 
     signal.signal(signal.SIGINT, signal_handler)
 
@@ -53,6 +62,7 @@ def send():
         kwargs={"wait_timeout": wait_timeout},
     )
 
+    count = 0
     operation = sample_operation_request
     while True:
         count = count + 1
