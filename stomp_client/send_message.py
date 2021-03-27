@@ -93,7 +93,10 @@ def send():
             if operation != "quit":
                 conn.send(
                     body=SchemaParser.serialize_operation(operation, to_string=True),
-                    headers={"reply-to": "replyto", 'model_class': operation.__class__.__name__},
+                    headers={
+                        "reply-to": "replyto",
+                        "model_class": operation.__class__.__name__,
+                    },
                     destination="Beer_Garden_Operations",
                 )
         else:
