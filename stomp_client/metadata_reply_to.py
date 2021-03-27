@@ -66,6 +66,8 @@ def listen():
         },
     )
 
+    print("All set, just waiting for messages!")
+
     signal.signal(signal.SIGINT, signal_handler)
     signal.pause()
 
