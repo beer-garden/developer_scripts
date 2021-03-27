@@ -63,6 +63,8 @@ def send():
         time.sleep(.01)
 
 
-send()
-if conn.is_connected():
-    conn.disconnect()
+if __name__ == "__main__":
+    send()
+
+    if conn.is_connected():
+        conn.disconnect()

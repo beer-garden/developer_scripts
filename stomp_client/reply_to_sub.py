@@ -74,4 +74,5 @@ def listen():
         pass
 
 
-listen()
+if __name__ == "__main__":
+    listen()

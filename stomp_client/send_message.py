@@ -103,4 +103,5 @@ def send():
         conn.disconnect()
 
 
-send()
+if __name__ == "__main__":
+    send()
