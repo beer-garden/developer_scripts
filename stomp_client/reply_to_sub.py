@@ -37,8 +37,6 @@ class MessageListener(stomp.ConnectionListener):
             print(f"Parsed message: {parsed!r}")
         except AttributeError:
             print("AttributeError: unable to parse message.")
-        except:
-            pass
 
 
 def listen():

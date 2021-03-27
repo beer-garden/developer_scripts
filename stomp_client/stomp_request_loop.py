@@ -26,13 +26,11 @@ def send():
     count = 0
     operation = None
     host_and_ports = [("localhost", 61613)]
+
     conn = stomp.Connection(host_and_ports=host_and_ports, heartbeats=(10000, 0))
-    try:
-        conn.connect(
-            "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
-        )
-    except:
-        pass
+    conn.connect(
+        "beer_garden", "password", wait=True, headers={"client-id": "beer_garden"}
+    )
 
     signal.signal(signal.SIGINT, signal_handler)
 
