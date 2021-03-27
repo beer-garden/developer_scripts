@@ -12,7 +12,7 @@ import signal
 import stomp
 from brewtils.schema_parser import SchemaParser
 
-conn = None
+conn: stomp.Connection
 
 
 def signal_handler(_, __):
