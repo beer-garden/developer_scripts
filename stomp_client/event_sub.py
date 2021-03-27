@@ -76,9 +76,7 @@ def listen():
     )
 
     signal.signal(signal.SIGINT, signal_handler)
-
-    while True:
-        pass
+    signal.pause()
 
 
 if __name__ == "__main__":
