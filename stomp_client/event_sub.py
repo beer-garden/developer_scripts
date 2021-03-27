@@ -14,11 +14,10 @@ from brewtils.schema_parser import SchemaParser
 conn = None
 
 
-def keyboardInterruptHandler(signal, frame):
+def signal_handler(_, __):
     global conn
     if conn.is_connected():
         conn.disconnect()
-    exit(0)
 
 
 class MessageListener(object):
@@ -75,7 +74,9 @@ def listen():
             "durable-subscription-name": "events",
         },
     )
-    signal.signal(signal.SIGINT, keyboardInterruptHandler)
+
+    signal.signal(signal.SIGINT, signal_handler)
+
     while True:
         pass
 
