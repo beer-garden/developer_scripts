@@ -8,8 +8,8 @@ is not removed so it can get missed messages after reconnection.
 """
 
 import signal
+
 import stomp
-from brewtils.models import Operation, Request, System, Events, Event
 from brewtils.schema_parser import SchemaParser
 
 conn = None

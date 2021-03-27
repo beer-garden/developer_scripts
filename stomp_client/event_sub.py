@@ -7,8 +7,8 @@ get missed messages after reconnection.
 """
 
 import signal
+
 import stomp
-from brewtils.models import Operation, Request, System, Event, Events
 from brewtils.schema_parser import SchemaParser
 
 conn = None

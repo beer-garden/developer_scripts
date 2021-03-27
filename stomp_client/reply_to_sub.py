@@ -8,8 +8,8 @@ has attribute metadata with a key 'reply-to' and a value of metadataReplyto
 """
 
 import signal
+
 import stomp
-from brewtils.models import Operation, Request, System, Events, Event
 from brewtils.schema_parser import SchemaParser
 
 conn = None

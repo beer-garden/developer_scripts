@@ -1,10 +1,16 @@
-# Sends 3 different operations based on user input to topic beergarden/operations, and request in the header for a
-# response to be sent to topic replyto
+#!/usr/bin/env python
+
+"""
+Sends 3 different operations based on user input to topic beergarden/operations and
+request in the header for a response to be sent to topic replyto
+"""
+
 import json
 import signal
-import stomp
 import time
-from brewtils.models import Operation, Request, System
+
+import stomp
+from brewtils.models import Operation, Request
 from brewtils.schema_parser import SchemaParser
 
 conn = None

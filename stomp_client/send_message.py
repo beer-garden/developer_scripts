@@ -7,9 +7,10 @@ request in the header for a response to be sent to topic replyto
 
 
 import signal
-import stomp
 import time
-from brewtils.models import Operation, Request, System
+
+import stomp
+from brewtils.models import Operation, Request
 from brewtils.schema_parser import SchemaParser
 
 conn = None
