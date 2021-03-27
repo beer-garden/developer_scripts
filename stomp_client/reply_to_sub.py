@@ -9,6 +9,7 @@ has attribute metadata with a key 'reply-to' and a value of metadataReplyto
 
 import signal
 
+import brewtils.models
 import stomp
 from brewtils.schema_parser import SchemaParser
 
@@ -29,10 +30,11 @@ class MessageListener(stomp.ConnectionListener):
         try:
             parsed = SchemaParser.parse(
                 message,
+                getattr(brewtils.models, headers["model_class"]),
                 from_string=True,
-                model_class=eval(headers["model_class"]),
                 many="True" == headers["many"],
             )
+
             print("Parsed message:", parsed)
         except AttributeError:
             print("AttributeError: unable to parse message.")

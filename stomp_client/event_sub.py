@@ -8,6 +8,7 @@ get missed messages after reconnection.
 
 import signal
 
+import brewtils.models
 import stomp
 from brewtils.schema_parser import SchemaParser
 
@@ -26,8 +27,12 @@ class MessageListener(stomp.ConnectionListener):
     def on_message(self, headers, message):
         try:
             parsed = SchemaParser.parse(
-                message, from_string=True, model_class=eval(headers["model_class"])
+                message,
+                getattr(brewtils.models, headers["model_class"]),
+                from_string=True,
+                many="True" == headers["many"],
             )
+
             print("Parsed message:", parsed)
 
             #  Forwards an event object to a destination if payload has a metadata
