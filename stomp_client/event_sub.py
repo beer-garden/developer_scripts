@@ -20,7 +20,7 @@ def signal_handler(_, __):
         conn.disconnect()
 
 
-class MessageListener(object):
+class MessageListener(stomp.ConnectionListener):
     def on_error(self, headers, message):
         print("received an error %s" % headers)
 
