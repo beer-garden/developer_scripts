@@ -22,7 +22,7 @@ def signal_handler(_, __):
 
 class MessageListener(stomp.ConnectionListener):
     def on_error(self, headers, message):
-        print("received an error %s" % headers)
+        print(f"Received an error:\n\tMessage: {message}\n\tHeaders: {headers}")
 
     def on_message(self, headers, message):
         global conn
