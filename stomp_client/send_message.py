@@ -7,7 +7,6 @@ request in the header for a response to be sent to topic replyto
 
 
 import signal
-import time
 
 import stomp
 from brewtils.models import Operation, Request
@@ -19,12 +18,6 @@ conn: stomp.Connection
 def signal_handler(_, __):
     if conn.is_connected():
         conn.disconnect()
-
-
-def sendHeartbeat():
-    while conn.is_connected:
-        time.sleep(30)
-        conn.send(body="heartbeat", destination="heartbeat")
 
 
 def send():
