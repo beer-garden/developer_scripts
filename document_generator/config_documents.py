@@ -13,4 +13,4 @@ my_spec.generate_documentation(app_name="Beer Garden", output_file_name='bg_conf
 # gem install kramdown-asciidoc
 
 
-os.system('kramdoc -output=config_yaml.adoc bg_configuration_docs.md')
+os.system('kramdoc -o config_yaml.adoc bg_configuration_docs.md')
