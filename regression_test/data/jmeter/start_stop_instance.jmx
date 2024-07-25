@@ -16,7 +16,7 @@
         </collectionProp>
         <collectionProp name="UserParameters.thread_values">
           <collectionProp name="1472970703">
-            <stringProp name="-1204607085">localhost</stringProp>
+            <stringProp name="-1204607085">beer-garden-parent</stringProp>
             <stringProp name="96784904">error</stringProp>
           </collectionProp>
         </collectionProp>
