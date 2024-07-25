@@ -20,7 +20,7 @@ do
 	
 	# Give BG a minute to start up
     echo "Wait 60 seconds"
-	sleep 60s
+	sleep 60
 	
 	# Pre-Load database
     echo "Load Database"
@@ -28,7 +28,7 @@ do
 
 	# Give BG a minute to process requests
     echo "Wait 120 seconds"
-	sleep 120s
+	sleep 120
 	
 	# Run testing
     echo "Run Tests"
