@@ -21,7 +21,8 @@ jobs:
                     path: ./regression_test/data/localplugins
 
             -   name: Run Regression Tests
-                run: ./regression_test/regression_test.sh ${{ matrix.release }}
+                run: ./regression_test.sh ${{ matrix.release }}
+                working-directory: ./regression_test
 
             -   name: Upload JMeter Results
                 uses: actions/upload-artifact@v3
