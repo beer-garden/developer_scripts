@@ -1,0 +1,19 @@
+After Docker Compose up -d
+
+If you want a different model then you can just run model
+# For standard laptops/PCs (Recommended starting point)
+deepseek-r1:7b
+
+# For low-spec systems or quick testing
+deepseek-r1:1.5b
+
+# For high-end workstations (requires 64GB+ RAM / VRAM)
+deepseek-r1:70b
+
+Open WebUI
+http://localhost:3000/
+
+To setup the MCP server open Settings -> Integrations -> Add External Tool
+- Change Type to MCP Streamable HTTP
+- URL = http://fastmcp-server:8000/mcp
+- AUTH = NONE

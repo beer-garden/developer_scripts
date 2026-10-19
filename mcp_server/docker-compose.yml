@@ -1,0 +1,62 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    networks:
+      - bg-network
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # Uncomment the lines below if you have an NVIDIA GPU
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    restart: unless-stopped
+    # This automatically boots the server and pulls the model if missing
+    entrypoint: >
+      /bin/sh -c "
+      ollama serve & 
+      sleep 5; 
+      ollama pull deepseek-r1:1.5b; 
+      wait
+      "
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    networks:
+      - bg-network
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_AUTH=false # Disables login screen for instant local access
+    volumes:
+      - open-webui_data:/app/backend/data
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  fastmcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastmcp-server
+    networks:
+      - bg-network
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  open-webui_data:
+
+networks:
+  bg-network:
+    external: true   
