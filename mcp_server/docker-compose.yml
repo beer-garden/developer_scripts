@@ -22,7 +22,7 @@ services:
       /bin/sh -c "
       ollama serve & 
       sleep 5; 
-      ollama pull deepseek-r1:1.5b; 
+      ollama pull llama3.1; 
       wait
       "
 
