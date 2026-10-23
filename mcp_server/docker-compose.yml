@@ -47,6 +47,17 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fastmcp-server
+    environment:
+      - MCP_BG_HOST=beer-garden 
+      - MCP_BG_PORT=2337 
+      - MCP_BG_SSL=false 
+      # - MCP_BG_CA_CERT=
+      # - MCP_BG_CLIENT_CERT= 
+      # - MCP_BG_CLIENT_KEY= 
+      # - MCP_BG_URL_PREFIX= 
+      - MCP_BIND_HOST=0.0.0.0 
+      - MCP_BIND_PORT=8000 
+      # - MCP_BG_TAGS="AI,MCP"
     networks:
       - bg-network
     ports:
