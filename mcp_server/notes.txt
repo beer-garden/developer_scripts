@@ -2,13 +2,13 @@ After Docker Compose up -d
 
 If you want a different model then you can just run model
 # For standard laptops/PCs (Recommended starting point)
-deepseek-r1:7b
+llama3.1:8b
 
 # For low-spec systems or quick testing
-deepseek-r1:1.5b
+llama3.2:1b
 
 # For high-end workstations (requires 64GB+ RAM / VRAM)
-deepseek-r1:70b
+llama3.1:70b
 
 Open WebUI
 http://localhost:3000/
@@ -17,3 +17,28 @@ To setup the MCP server open Settings -> Integrations -> Add External Tool
 - Change Type to MCP Streamable HTTP
 - URL = http://fastmcp-server:8000/mcp
 - AUTH = NONE
+
+To test MCP server with curl commands
+curl -X POST http://localhost:8000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/list",
+    "params": {}
+  }'
+
+curl -X POST http://localhost:8000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "docker-echo-3.0.0.dev0-default_say",
+      "arguments": {
+        "parameters": {"message": "hello"}
+      }
+    }
+  }'
+

@@ -6,7 +6,7 @@ from brewtils.models import System
 from brewtils.schemas import SystemSchema
 from fastmcp.tools import Tool
 from fastmcp.tools.tool_transform import ArgTransform
-from dataclasses import make_dataclass
+from dataclasses import make_dataclass, field
 import logging
 from fastmcp.utilities.logging import get_logger
 import os
@@ -66,7 +66,7 @@ def parameter_type_mapping(parameter_type: str):
         return int
     if parameter_type == "DateTime":
         return int
-    return any
+    return dict
 
 def generate_commands():
     client = EasyClient(**bg_connection_args)
@@ -89,12 +89,17 @@ def generate_commands():
                         continue
 
                 inputs = []
-                command.parameters.sort(key=lambda x: (not x.default, x.default), reverse=True)
                 for parameter in command.parameters:
                     if parameter.default:
+                        # Must setup default_factory for list and dict types
+                        if isinstance(parameter.default, (list, dict)):
+                            parameter.default = field(default_factory=parameter.default)
                         inputs.append((parameter.key, parameter_type_mapping(parameter.type), parameter.default))
                     else:
                         inputs.append((parameter.key, parameter_type_mapping(parameter.type)))
+                
+                # Sort inputs by tuple length to push parameters with defaults to end of list
+                inputs.sort(key=len)
 
                 logger.info(f"Loading {system.namespace}-{system.name}-{instance.name}-{system.version}-{command.name}")
                 mcp.add_tool(
@@ -102,8 +107,8 @@ def generate_commands():
                         tool=run_cmd,
                         name=f"{system.namespace}-{system.name}-{system.version}-{instance.name}_{command.name}",
                         title=command.display_name if command.display_name else command.name,
-                        description=f"Namespace={system.namespace} System={system.name} Version={system.version} Instance={instance.name} Description = {command.description}",
-                        metadata={"namespace":system.namespace, "system":system.name, "version":system.version, "instance":instance.name},
+                        description=f"Namespace={system.namespace} System={system.name} Version={system.version} Instance={instance.name} Description={command.description}",
+                        meta={"namespace":system.namespace, "system":system.name, "version":system.version, "instance":instance.name},
                         transform_args={
                             # Set from looped system
                             "namespace": ArgTransform(hide=True, default=system.namespace),
