@@ -49,7 +49,7 @@ for bg_tag in os.environ.get("MCP_BG_TAGS", "").split(","):
 
 def run_cmd(namespace: str, system_name: str, instance_name: str, system_version: str, command_name: str, parameters: dict):
     logger.info(f"Ran {namespace}-{system_name}-{instance_name}-{system_version}-{command_name}")
-    request = SystemClient(system_name=system_name, system_namespace=namespace, default_instance=instance_name, **bg_connection_args)[command_name](_blocking=True, **parameters)
+    request = getattr(SystemClient(system_name=system_name, system_namespace=namespace, default_instance=instance_name, **bg_connection_args), command_name)(_blocking=True, **parameters)
     return request.output
 
 def parameter_type_mapping(parameter_type: str):
