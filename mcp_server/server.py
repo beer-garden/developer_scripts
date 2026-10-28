@@ -103,7 +103,7 @@ def generate_commands():
                         name=f"{system.namespace}-{system.name}-{system.version}-{instance.name}_{command.name}",
                         title=command.display_name if command.display_name else command.name,
                         description=f"Namespace={system.namespace} System={system.name} Version={system.version} Instance={instance.name} Description = {command.description}",
-                        metadata={"namespace":system.namespace, "system":system.name, "version":system.version, "instance":instance.name},
+                        meta={"namespace":system.namespace, "system":system.name, "version":system.version, "instance":instance.name},
                         transform_args={
                             # Set from looped system
                             "namespace": ArgTransform(hide=True, default=system.namespace),
