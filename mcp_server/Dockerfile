@@ -18,7 +18,8 @@ ENV MCP_BG_HOST=beer-garden \
     MCP_BG_URL_PREFIX= \
     MCP_BIND_HOST=0.0.0.0 \
     MCP_BIND_PORT=8000 \
-    MCP_BG_TAGS= 
+    MCP_BG_TAGS= \
+    MCP_BG_WHITELIST=whitelist.json
 
 # Expose the internal port
 EXPOSE 8000

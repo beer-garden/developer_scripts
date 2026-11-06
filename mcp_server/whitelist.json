@@ -1,0 +1,11 @@
+{
+    "whitelist":[
+        {
+            "namespace":"",
+            "system_name":"",
+            "system_version":"",
+            "instance_name":"",
+            "command":""
+        }
+    ]
+}

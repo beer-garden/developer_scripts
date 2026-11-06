@@ -47,6 +47,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fastmcp-server
+    volumes:
+      - ./whitelist.json:/app/whitelist.json
     environment:
       - MCP_BG_HOST=beer-garden 
       - MCP_BG_PORT=2337 
@@ -58,6 +60,7 @@ services:
       - MCP_BIND_HOST=0.0.0.0 
       - MCP_BIND_PORT=8000 
       # - MCP_BG_TAGS="AI,MCP"
+      # - MCP_BG_WHITELIST=/app/whitelist.json
     networks:
       - bg-network
     ports:
